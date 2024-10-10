@@ -34,11 +34,11 @@ jobs:
         password: ${{ secrets.DOCKER_TOKEN }}
 
     - name: Build and tag Docker image
-      run: docker build -t delveccj/flask_project:latest .
+      run: docker build -t nickkeller62/flask_project:latest .
 
     - name: Run integration tests in Docker container
       run: |
-        docker run -d -p 5000:5005 --name flask_app delveccj/flask_project:latest
+        docker run -d -p 5000:5005 --name flask_app nickkeller62/flask_project:latest
         sleep 10 # Give the container some time to start
         python -m unittest discover -s tests -p "test_integration.py"
         docker stop flask_app
@@ -46,5 +46,5 @@ jobs:
 
     - name: Push Docker image to Docker Hub
       if: success()
-      run: docker push delveccj/flask_project:latest
+      run: docker push nickkeller62/flask_project:latest
 
